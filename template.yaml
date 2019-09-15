@@ -14,19 +14,12 @@ Resources:
     Properties:
       Handler: twilio_lambda.forward_message
       Runtime: ruby2.5
-  #     Policies:
-  #     - DynamoDBCrudPolicy:
-  #         TableName: !Ref RubyExampleDDBTable 
-  #     Environment:
-  #       Variables:
-  #         DDB_TABLE: !Ref RubyExampleDDBTable
-
-  # RubyExampleDDBTable:
-  #   Type: AWS::Serverless::SimpleTable
-  #   Properties:
-  #     PrimaryKey:
-  #       Name: id
-  #       Type: String
+      
+  TwilioLambdaCallsFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: twilio_lambda.receive_and_record_call
+      Runtime: ruby2.5
 
 Outputs:
   HelloRubyRecordFunction:
@@ -40,4 +33,10 @@ Outputs:
     Value:
       Fn::GetAtt:
       - TwilioLambdaMessageFunction
+      - Arn
+  TwilioLambdaCallsFunction:
+    Description: Twilio Lambda Calls Function ARN
+    Value:
+      Fn::GetAtt:
+      - TwilioLambdaCallsFunction
       - Arn
