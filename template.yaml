@@ -8,6 +8,12 @@ Resources:
     Properties:
       Handler: twilio_lambda.hello_world
       Runtime: ruby2.5
+      
+  TwilioLambdaMessageFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: twilio_lambda.forward_message
+      Runtime: ruby2.5
   #     Policies:
   #     - DynamoDBCrudPolicy:
   #         TableName: !Ref RubyExampleDDBTable 
@@ -28,4 +34,10 @@ Outputs:
     Value:
       Fn::GetAtt:
       - HelloRubyRecordFunction
+      - Arn
+  TwilioLambdaMessageFunction:
+    Description: Twilio Lamvda Message Function ARN
+    Value:
+      Fn::GetAtt:
+      - TwilioLambdaMessageFunction
       - Arn
