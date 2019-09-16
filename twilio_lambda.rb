@@ -38,8 +38,13 @@ def receive_and_record_call(event:,context:)
 			response = Twilio::TwiML::VoiceResponse.new do |r|
 			    # Use <Say> to give the caller some instructions
 			    # to-do: different message based on MX vs US
-			    r.say(message: 'Hello. Please leave a message after the beep.')
-			
+			    
+			    if event['CallerCountry']=='MX' then
+		    		r.say(message: 'Por favor deja tu mensaje despues del tono', language:'es-MX', voice:'alice')
+		    	else 
+		    		r.say(message: 'Hello. Please leave a message after the beep.', language:'en-US', voice:'alice')
+			    end
+			    
 			    # Use <Record> to record the caller's message
 			    r.record(transcribe: true)
 			
